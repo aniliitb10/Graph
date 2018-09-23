@@ -1,8 +1,11 @@
 #include "../include/Graph.h"
+#include "../include/Exception.h"
 
-Graph::Graph(Graph::Type numOfVertices_, Graph::Type numOfEdges_, const Graph::PairList &edges_):
-  _numOfVertices(numOfVertices_),
-  _numOfEdges(numOfEdges_)
+#include <algorithm>
+#include <iostream>
+
+Graph::Graph(size_t numOfVertices_, const Graph::PairList &edges_):
+  _numOfVertices(numOfVertices_)
 {
   _adjacencyList.resize(_numOfVertices);
 
@@ -14,10 +17,31 @@ Graph::Graph(Graph::Type numOfVertices_, Graph::Type numOfEdges_, const Graph::P
 
 void Graph::addEdge(Type from_, Type to_)
 {
+  if ((from_ < 0) || (from_ >= _numOfVertices) || (to_ < 0) || (to_ >= _numOfVertices))
+  {
+    throw Exception("Invalid indices: " + std::to_string(from_) + " -> " + std::to_string(to_));
+  }
+
   _adjacencyList[from_].push_back(to_);
+  _adjacencyList[to_].push_back(from_);
+  ++_numOfEdges;
 }
 
-const Graph::List &Graph::getAdjacents(Type from_) const
+const Graph::List &Graph::getAdjacentVertices(Type from_) const
 {
+  if ((from_ < 0) || (from_ > _numOfVertices))
+  {
+    throw Exception("Invalid index: " + std::to_string(from_));
+  }
   return _adjacencyList[from_];
+}
+
+auto Graph::hasEdge(Graph::Type from_, Graph::Type to_) const -> bool
+{
+  if (from_ >= _numOfVertices)
+  {
+    return false;
+  }
+  const auto& vec = _adjacencyList[from_];
+  return std::find(std::cbegin(vec), std::cend(vec), to_) != std::cend(vec);
 }
