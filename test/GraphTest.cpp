@@ -1,5 +1,6 @@
 #include "../include/Graph.h"
 #include "../include/Exception.h"
+#include "../include/DFS.h"
 
 #include <gtest/gtest.h>
 
