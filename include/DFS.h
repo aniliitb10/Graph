@@ -7,11 +7,11 @@
 class DFS
 {
 public:
-  using IntList = std::list<int>;
+  using IntVec = std::vector<int>;
 
   explicit DFS(const Graph& graph_, int source_);
   bool connected(int destination_) const;
-  IntList path(int destination_) const;
+  IntVec path(int destination_) const;
 
 private:
 

@@ -15,9 +15,4 @@ private:
   std::string _msg;
 };
 
-//#define ASSERT(condition, msg) do { if(!condition) throw Exception(msg); } while(0);
-
-//#define ASSERT(condition, expression)                    \
-//        do {                                             \
-//        if (!condition) throw Exception(expression);\
-//        } while (0);
+#define ASSERT(condition, msg) do { if(!(condition)) throw Exception(msg); } while(0);

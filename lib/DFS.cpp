@@ -12,13 +12,13 @@ bool DFS::connected(int destination_) const
   return _connInfoList[destination_]._marked;
 }
 
-DFS::IntList DFS::path(int destination_) const
+DFS::IntVec DFS::path(int destination_) const
 {
-  DFS::IntList path;
+  std::list<int> path;
 
   if (!connected(destination_))
   {
-    return path;
+    return DFS::IntVec{};
   }
 
   path.emplace_front(destination_);
@@ -31,7 +31,7 @@ DFS::IntList DFS::path(int destination_) const
   }
   path.emplace_front(_source);
 
-  return path;
+  return DFS::IntVec{std::begin(path), std::end(path)};
 }
 
 void DFS::dfs(const Graph& graph_, int vertex_)

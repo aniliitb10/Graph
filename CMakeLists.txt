@@ -11,5 +11,5 @@ file(GLOB TestSource "test/*.cpp")
 
 include_directories( ${GTEST_INCLUDE_PATH} )
 
-add_executable(LearningModernCpp main.cpp ${SOURCE_FILES} ${TestSource})
-target_link_libraries(LearningModernCpp ${GTEST_LIB_PATH} pthread)
+add_executable(Graph main.cpp ${SOURCE_FILES} ${TestSource})
+target_link_libraries(Graph ${GTEST_LIB_PATH} pthread)

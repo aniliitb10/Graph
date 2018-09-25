@@ -17,10 +17,8 @@ Graph::Graph(size_t numOfVertices_, const Graph::PairList &edges_):
 
 void Graph::addEdge(Type from_, Type to_)
 {
-  if ((from_ < 0) || (from_ >= _numOfVertices) || (to_ < 0) || (to_ >= _numOfVertices))
-  {
-    throw Exception("Invalid indices: " + std::to_string(from_) + " -> " + std::to_string(to_));
-  }
+  ASSERT((from_ >= 0) && (from_ < _numOfVertices) && (to_ >= 0) && (to_ < _numOfVertices),
+    "Invalid indices: " + std::to_string(from_) + " -> " + std::to_string(to_));
 
   _adjacencyList[from_].push_back(to_);
   _adjacencyList[to_].push_back(from_);
@@ -29,10 +27,7 @@ void Graph::addEdge(Type from_, Type to_)
 
 const Graph::List &Graph::getAdjacentVertices(Type from_) const
 {
-  if ((from_ < 0) || (from_ > _numOfVertices))
-  {
-    throw Exception("Invalid index: " + std::to_string(from_));
-  }
+  ASSERT((from_ >= 0) && (from_ < _numOfVertices), "Invalid index: " + std::to_string(from_));
   return _adjacencyList[from_];
 }
 
