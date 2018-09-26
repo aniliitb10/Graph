@@ -9,18 +9,21 @@ _source(source_)
 
 bool DFS::connected(int destination_) const
 {
+  if ((destination_ < 0) || (destination_ >= _connInfoList.size()))
+  {
+    return false;
+  }
   return _connInfoList[destination_]._marked;
 }
 
 DFS::IntVec DFS::path(int destination_) const
 {
-  std::list<int> path;
-
-  if (!connected(destination_))
+  if ((destination_ < 0) || (destination_ >= _connInfoList.size()) || !connected(destination_))
   {
     return DFS::IntVec{};
   }
 
+  std::list<int> path;
   path.emplace_front(destination_);
 
   auto reachedFrom = _connInfoList[destination_]._reachedFrom;
